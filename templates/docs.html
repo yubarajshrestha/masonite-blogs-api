@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}ER Diagram{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+{% endblock %}
+{% block content %}
+<div class="flex flex-row justify-center">
+    <section class="users-section">
+        <div class="mermaid">
+            erDiagram
+                USER {
+                    string name
+                    string email
+                    string password
+                }
+                
+                BLOG {
+                    string title
+                    string slug
+                    string excerpt
+                    text content
+                    int created_by
+                    enum status
+                }
+
+                CATEGORY {
+                    string name
+                    string slug
+                    enum status
+                }
+
+                USER ||--|{ BLOG : has_many
+                BLOG }|--|{ CATEGORY : belongs_to_many
+        </div>
+        <div class="text-gray-500">figure 1: Entity Relationship Diagram</div>
+    </section>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    mermaid.initialize({
+        startOnLoad: true
+    });
+    mermaid.init(undefined, '.mermaid');
+</script>
+{% endblock %}

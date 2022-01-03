@@ -2,14 +2,14 @@
 from masonite.views import View
 from masonite.controllers import Controller
 
-
 class WelcomeController(Controller):
     """WelcomeController Controller Class."""
 
-    def show(self, view: View):
+    def index(self, view: View):
         return view.render("welcome")
 
-    def test(self):
-        return {
-            "hello": "world"
-        }
+    def about(self, view: View):
+        return view.render("about")
+    
+    def docs(self, view: View):
+        return view.render("docs")

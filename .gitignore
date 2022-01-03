@@ -16,3 +16,4 @@ package-lock.json
 
 # compiled assets
 storage/compiled
+*.sqlite3
