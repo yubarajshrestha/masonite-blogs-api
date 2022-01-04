@@ -4,4 +4,5 @@ ROUTES = [
     Route.get("/", "WelcomeController@index"),
     Route.get('/about', 'WelcomeController@about'),
     Route.get("/docs", "WelcomeController@docs"),
+    Route.get("/categories", "WelcomeController@categories"),
 ]
