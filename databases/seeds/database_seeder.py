@@ -9,4 +9,4 @@ class DatabaseSeeder(Seeder):
     def run(self):
         """Run the database seeds."""
         self.call(UserTableSeeder)
-        self.call(CategoriesTableSeeder)
+        # self.call(CategoriesTableSeeder)
