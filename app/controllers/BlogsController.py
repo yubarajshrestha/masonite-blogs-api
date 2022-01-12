@@ -6,6 +6,8 @@ from masonite.request import Request
 from masonite.response import Response
 from masoniteorm.exceptions import QueryException
 
+from app.validation.BlogRule import BlogRule
+
 class BlogsController(Controller):
     
     def index(self, response: Response):
@@ -15,6 +17,13 @@ class BlogsController(Controller):
         })
 
     def store(self, request: Request, response: Response):
+        errors = request.validate(BlogRule)
+        if errors:
+            return response.json({
+                "message": "Data validation failed!",
+                "errors": errors.all()
+            }, 422)
+            
         data = request.only('title', 'slug', 'excerpt', 'content', 'user_id', 'status', 'categories')
         data['categories'] = json.loads(data['categories'])
         data['user_id'] = request.user().id
@@ -51,6 +60,13 @@ class BlogsController(Controller):
         })
         
     def update(self, id, request: Request, response: Response):
+        errors = request.validate(BlogRule)
+        if errors:
+            return response.json({
+                "message": "Data validation failed!",
+                "errors": errors.all()
+            }, 422)
+            
         data = request.only('title', 'slug', 'excerpt', 'content', 'user_id', 'status')
         blog = Blog.find(id)
         if not blog:

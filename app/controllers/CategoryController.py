@@ -2,6 +2,7 @@ from masonite.controllers import Controller
 from masonite.response import Response
 from masonite.request import Request
 from app.models.Category import Category
+from app.validation.CategoryRule import CategoryRule
 
 
 class CategoryController(Controller):
@@ -15,6 +16,14 @@ class CategoryController(Controller):
     def store(self, request: Request, response: Response):
         data = request.only('name', 'slug', 'status')
         
+        errors = request.validate(CategoryRule)
+        
+        if errors:
+            return response.json({
+                "message": "Data validation failed!",
+                "errors": errors.all()
+            }, 422)
+        
         data['user_id'] = request.user().id
         
         category = Category.create(data)
@@ -24,6 +33,14 @@ class CategoryController(Controller):
         }, 201)
         
     def update(self, id, request: Request, response: Response):
+        
+        errors = request.validate(CategoryRule)
+        if errors:
+            return response.json({
+                "message": "Data validation failed!",
+                "errors": errors.all()
+            }, 422)
+        
         data = request.only('name', 'slug', 'status')
         data['user_id'] = request.user().id
         category = Category.find(id)

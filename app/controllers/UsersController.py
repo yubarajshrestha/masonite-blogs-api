@@ -3,7 +3,7 @@ from masonite.facades.Hash import Hash
 from app.models.User import User
 from masonite.request import Request
 from masonite.response import Response
-
+from app.validation.UserRule import UserRule
 
 class UsersController(Controller):
     
@@ -14,6 +14,13 @@ class UsersController(Controller):
         })
 
     def store(self, request: Request, response: Response):
+        errors = request.validate(UserRule)
+        if errors:
+            return response.json({
+                "message": "Data validation failed!",
+                "errors": errors.all()
+            }, 422)
+            
         data = request.only('name', 'email', 'password')
         data['password'] = Hash.make(data['password']).decode('utf-8')
         user = User.create(data)
@@ -34,6 +41,14 @@ class UsersController(Controller):
         })
         
     def update(self, id, request: Request, response: Response):
+        
+        errors = request.validate(UserRule)
+        if errors:
+            return response.json({
+                "message": "Data validation failed!",
+                "errors": errors.all()
+            }, 422)
+            
         data = request.only('name', 'email')
         
         user = User.find(id)
