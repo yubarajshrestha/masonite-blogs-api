@@ -7,13 +7,16 @@ from app.models.Category import Category
 class CategoryController(Controller):
     
     def index(self, response: Response):
-        categories = Category.all()
+        categories = Category.with_("user").with_count("blogs").all()
         return response.json({
             "data": categories.serialize()
         })
 
     def store(self, request: Request, response: Response):
         data = request.only('name', 'slug', 'status')
+        
+        data['user_id'] = request.user().id
+        
         category = Category.create(data)
         return response.json({
             "data": category.serialize(),
@@ -22,6 +25,7 @@ class CategoryController(Controller):
         
     def update(self, id, request: Request, response: Response):
         data = request.only('name', 'slug', 'status')
+        data['user_id'] = request.user().id
         category = Category.find(id)
         if not category:
             return response.json({
@@ -30,7 +34,7 @@ class CategoryController(Controller):
             
         category.update(data)
         return response.json({
-            "data": category.serialize(),
+            "data": category.fresh().serialize(),
             "message": "Category updated successfully!"
         }, 201)
         

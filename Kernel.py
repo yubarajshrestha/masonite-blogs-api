@@ -25,7 +25,8 @@ class Kernel:
     route_middleware = {
         "web": [SessionMiddleware, LoadUserMiddleware, VerifyCsrfToken],
         "api": [
-            JWTAuthenticationMiddleware
+            JWTAuthenticationMiddleware,
+            LoadUserMiddleware
         ],
     }
 

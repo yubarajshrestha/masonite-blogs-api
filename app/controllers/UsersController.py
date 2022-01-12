@@ -8,7 +8,7 @@ from masonite.response import Response
 class UsersController(Controller):
     
     def index(self, response: Response):
-        users = User.all()
+        users = User.with_count("categories").with_count("blogs").all()
         return response.json({
             "data": users.serialize()
         })
