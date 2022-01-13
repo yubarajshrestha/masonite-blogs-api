@@ -21,11 +21,3 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://docs.masoniteproject.com/security/csrf-protection#ajax-vue-axios');
 }
-
-import Vue from 'vue';
-import Alert from './components/Alert.vue';
-
-new Vue({
-    el: '#app',
-    components: { Alert }
-})
