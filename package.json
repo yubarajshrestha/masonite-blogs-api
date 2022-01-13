@@ -12,6 +12,11 @@
   "devDependencies": {
     "axios": "^0.22.0",
     "laravel-mix": "^6.0.39",
-    "postcss": "^8.4.5"
+    "postcss": "^8.4.5",
+    "vue-loader": "^15.9.7",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "dependencies": {
+    "vue": "^2.6.14"
   }
 }
