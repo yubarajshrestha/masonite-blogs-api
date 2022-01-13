@@ -21,3 +21,17 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://docs.masoniteproject.com/security/csrf-protection#ajax-vue-axios');
 }
+
+
+import Vue from 'vue';
+import HelloWorld from './components/hello-world.vue';
+
+new Vue({
+    el: '#app',
+    components: {
+        HelloWorld
+    },
+    mounted() {
+        console.log('App mounted successfully');
+    }
+})
