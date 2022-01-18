@@ -3,6 +3,12 @@
 
 {% block content %}
 
+<ul>
+{% for user in users %}
+    <li>{{ user.name }} - {{ user.categories.length }}</li>
+{% endfor %}
+</ul>
+
 <hello-world></hello-world>
 
 {% endblock %}

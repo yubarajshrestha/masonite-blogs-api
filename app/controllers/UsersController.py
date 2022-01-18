@@ -8,7 +8,7 @@ from app.validation.UserRule import UserRule
 class UsersController(Controller):
     
     def index(self, response: Response):
-        users = User.with_count("categories").with_count("blogs").all()
+        users = User.all()
         return response.json({
             "data": users.serialize()
         })

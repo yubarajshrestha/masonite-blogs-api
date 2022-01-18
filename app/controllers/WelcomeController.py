@@ -3,12 +3,19 @@ from masonite.views import View
 from masonite.controllers import Controller
 
 from app.models.Category import Category
+from app.models.User import User
 
 class WelcomeController(Controller):
     """WelcomeController Controller Class."""
 
     def index(self, view: View):
-        return view.render("welcome")
+        users = User.with_('categories').all()
+        categories = Category.all()
+        
+        return view.render('welcome', {
+            'users': users,
+            'categories': categories,
+        })
 
     def about(self, view: View):
         return view.render("about")

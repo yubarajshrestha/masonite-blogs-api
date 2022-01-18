@@ -22,6 +22,7 @@ from masonite.api.providers import ApiProvider
 from masonite.scheduling.providers import ScheduleProvider
 from masonite.notification.providers import NotificationProvider
 from masonite.validation.providers import ValidationProvider
+from debugbar.providers import DebugProvider
 
 PROVIDERS = [
     FrameworkProvider,
@@ -45,4 +46,5 @@ PROVIDERS = [
     AuthorizationProvider,
     ORMProvider,
     ApiProvider,
+    DebugProvider,
 ]
